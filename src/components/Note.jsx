@@ -65,12 +65,20 @@ const Note = () => {
             </div>
 
             <div className="flex justify-between items-center">
-              <button
-                onClick={handleDelete}
-                className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition"
-              >
-                🗑️ Delete
-              </button>
+              <div className="flex space-x-4">
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition"
+                >
+                  🗑️ Delete
+                </button>
+                <Link
+                  to={`/notes/${id}/edit`}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition"
+                >
+                  ✏️ Edit
+                </Link>
+              </div>
 
               <Link
                 to="/notes"

@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import Notes from "../components/Notes";
 import Note from "../components/Note";
 import NewNote from "../components/NewNote";
+import EditNote from "../components/EditNote";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
            {
               path: 'new',
               Component: NewNote
+           },
+           {
+              path: ':id/edit',
+              Component: EditNote  
            },
            {
               path: ':id',
