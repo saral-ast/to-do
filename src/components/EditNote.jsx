@@ -16,7 +16,7 @@ const EditNote = () => {
       try {
         const response = await axios.put(`${apiUrl}/${id}`, { title });
         if (response.status === 200) {
-          toast.success("Updated successfully!");
+          toast.success("Yeah Upadated successfully!");
           setTimeout(() => navigate("/notes"), 1500);
         }
       } catch (error) {
