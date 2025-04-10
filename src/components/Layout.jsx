@@ -1,19 +1,24 @@
-import { Outlet } from 'react-router'
-import Footer from './Footer'
-import NavBar from './NavBar'
+import { Outlet } from "react-router";
+import Footer from "./Footer";
+import NavBar from "./NavBar";
 
 const Layout = () => {
   return (
-      <>
-        <NavBar />
-        <main className="container mx-auto px-4 py-8">
-          {/* Content goes here */}
-          <Outlet/>
-        </main>
-        <Footer/>
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+      {/* Navbar */}
+      <NavBar />
 
-      </>
-  )
-}
+      {/* Main content area */}
+      <main className="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white p-6 rounded-xl shadow-md overflow-hidden">
+          <Outlet />
+        </div>
+      </main>
 
-export default Layout
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+};
+
+export default Layout;

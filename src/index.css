@@ -1,7 +1,12 @@
 @import "tailwindcss";
+
+body {
+  overflow-x: hidden;
+}
+
 #root {
   padding: 0;
   margin: 0;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
