@@ -7,6 +7,8 @@ import Notes from "../components/Notes";
 import Note from "../components/Note";
 import NewNote from "../components/NewNote";
 import EditNote from "../components/EditNote";
+import NotFound from "../pages/NotFound";
+
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: "*",
+    Component:NotFound
+  }
 ]);
 
 export default router;

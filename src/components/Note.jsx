@@ -14,16 +14,19 @@ const Note = () => {
 
   const fetchNote = async () => {
     try {
-      const response = await axios.get(
-        `${apiUrl}/${id}`
-      );
+      const response = await axios.get(`${apiUrl}/${id}`);
       setNote(response.data);
       setLoading(false);
     } catch (error) {
-      setError(error);
       setLoading(false);
+      if (error.response && error.response.status === 404) {
+        navigate("*"); // Redirect to NotFound page
+      } else {
+        setError(error);
+      }
     }
   };
+
 
   const handleDelete = async () => {
     try {
