@@ -3,42 +3,54 @@ import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, fetchSingleTodo, selectError, selectLoading, selectTodo } from "../features/todo/todoSlice";
 
 const Note = () => {
   const { id } = useParams();
+
   const navigate = useNavigate();
-  const [note, setNote] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const apiUrl = import.meta.env.VITE_API_URL;
-
-  const fetchNote = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/${id}`);
-      setNote(response.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      if (error.response && error.response.status === 404) {
-        navigate("*"); // Redirect to NotFound page
-      } else {
-        setError(error);
-      }
-    }
-  };
+  const dispatch = useDispatch()
+  const note = useSelector(selectTodo)
+  const loading = useSelector(selectLoading)
+  const error = useSelector(selectError)
 
 
-  const handleDelete = async () => {
-    try {
-      await axios.delete(
-        `${apiUrl}/${id}`
-      );
-      toast.success("Deleted successfully!");
-      setTimeout(() => navigate("/notes"), 1500);
-    } catch (error) {
-      console.error("Delete failed:", error);
-      toast.error("Failed to delete the note.");
-    }
+  // const fetchNote = async () => {
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/${id}`);
+  //     setNote(response.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     if (error.response && error.response.status === 404) {
+  //       navigate("*"); // Redirect to NotFound page
+  //     } else {
+  //       setError(error);
+  //     }
+  //   }
+  // };
+  const fetchNote = () =>{
+      dispatch(fetchSingleTodo(id))
+  } 
+
+
+  // const handleDelete = async () => {
+  //   try {
+  //     await axios.delete(
+  //       `${apiUrl}/${id}`
+  //     );
+  //     toast.success("Deleted successfully!");
+  //     setTimeout(() => navigate("/notes"), 1500);
+  //   } catch (error) {
+  //     console.error("Delete failed:", error);
+  //     toast.error("Failed to delete the note.");
+  //   }
+  // };
+   const handleDelete = () => {
+    dispatch(deleteTodo(id))
+    toast.success("Deleted successfully!");
+    setTimeout(() => navigate("/notes"), 1500);
   };
 
   useEffect(() => {

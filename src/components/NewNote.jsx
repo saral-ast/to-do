@@ -1,35 +1,46 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addTodo } from "../features/todo/todoSlice";
 
 const NewNote = () => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const dispatch = useDispatch()
+  // const apiUrl = import.meta.env.VITE_API_URL;
 
-  const handleSave = async () => {
-    if (title.trim()) {
-      try {
-        const response = await axios.post(
-          `${apiUrl}`,
-          { title }
-        );
+  // const handleSave = async () => {
+  //   if (title.trim()) {
+  //     try {
+  //       const response = await axios.post(
+  //         `${apiUrl}`,
+  //         { title }
+  //       );
 
-        if (response.status === 201 || response.status === 200) {
-          toast.success("Created successfully!");
-          setTitle("");
-          setTimeout(() => navigate("/notes"), 1500); // give toast time to show
-        }
-      } catch (error) {
-        console.error("Failed to create to-do:", error);
-        toast.error("Something went wrong!");
-      }
-    } else {
-      toast.warn("Please enter a title!");
-    }
-  };
+  //       if (response.status === 201 || response.status === 200) {
+  //         toast.success("Created successfully!");
+  //         setTitle("");
+  //         setTimeout(() => navigate("/notes"), 1500); // give toast time to show
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to create to-do:", error);
+  //       toast.error("Something went wrong!");
+  //     }
+  //   } else {
+  //     toast.warn("Please enter a title!");
+  //   }
+  // };
+  const handleSave = () => {
+       if(title.trim()){
+           dispatch(addTodo({title}))
+           toast.success("Created successfully!");
+           setTitle("");
+           setTimeout(() => navigate("/notes"), 500); // give toast time to sho
+       }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-4">

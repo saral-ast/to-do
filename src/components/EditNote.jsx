@@ -2,46 +2,68 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleTodo, selectError, selectLoading, selectTodo, updateTodo } from "../features/todo/todoSlice";
 
 const EditNote = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch()
+  const loading = useSelector(selectLoading)
+  const todo = useSelector(selectTodo)
+  const [title, setTitle] = useState('');
+  // console.log(todo)
+  const error = useSelector(selectError)
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const handleSave = async (title) => {
+  // const handleSave = async (title) => {
+  //   if (title.trim()) {
+  //     try {
+  //       const response = await axios.put(`${apiUrl}/${id}`, { title });
+  //       if (response.status === 200) {
+  //         toast.success("Yeah Upadated successfully!");
+  //         setTimeout(() => navigate("/notes"), 1500);
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to update note:", error);
+  //       toast.error("Something went wrong!");
+  //     }
+  //   } else {
+  //     toast.warning("Title cannot be empty!");
+  //   }
+  // };
+
+  const handleSave = () => {
     if (title.trim()) {
-      try {
-        const response = await axios.put(`${apiUrl}/${id}`, { title });
-        if (response.status === 200) {
-          toast.success("Yeah Upadated successfully!");
-          setTimeout(() => navigate("/notes"), 1500);
-        }
-      } catch (error) {
-        console.error("Failed to update note:", error);
-        toast.error("Something went wrong!");
-      }
+      dispatch(updateTodo({ id, title }))
+      toast.success("Updated successfully!");
+      setTimeout(() => navigate("/notes"), 1500);
     } else {
       toast.warning("Title cannot be empty!");
     }
-  };
+  }
 
-  const fetchNote = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/${id}`);
-      setTitle(response.data.title);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
+  // const fetchNote = async () => {
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/${id}`);
+  //     setTitle(response.data.title);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setError(error);
+  //     setLoading(false);
+  //   }
+  // };
+  useEffect(()=>{
+    dispatch(fetchSingleTodo(id))
+  },[dispatch, id])
+
+  useEffect(()=>{
+    if(todo){
+      setTitle(todo.title)
     }
-  };
-
-  useEffect(() => {
-    fetchNote();
-  }, [id]);
+  },[todo])
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
@@ -52,7 +74,7 @@ const EditNote = () => {
           <p className="text-red-600 text-center">Error: {error.message}</p>
         )}
 
-        {!loading && !error && (
+        {!loading && !error && todo && (
           <>
             <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
               Edit To-do
