@@ -41,53 +41,56 @@ const Note = () => {
   }, [id]);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 sm:px-6 py-10">
-      <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-4 sm:p-6">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-          Note Details
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-4 sm:px-6 py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 space-y-6 border border-gray-200">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-800">📝 Note Details</h1>
+          <Link
+            to="/notes"
+            className="text-sm text-blue-600 hover:underline font-medium"
+          >
+            ← Back
+          </Link>
+        </div>
 
-        {loading && <p className="text-gray-500">Loading...</p>}
-        {error && <p className="text-red-600">Error: {error.message}</p>}
+        {loading && <p className="text-gray-500 animate-pulse">Loading...</p>}
+        {error && (
+          <p className="text-red-600 bg-red-50 p-2 rounded-md border border-red-200">
+            Error: {error.message}
+          </p>
+        )}
 
         {!loading && !error && note && (
-          <>
-            <div className="space-y-2 mb-6">
-              <p className="text-gray-700">
-                <span className="font-medium">ID:</span> {note.id}
-              </p>
-              <p className="text-gray-700">
-                <span className="font-medium">Title:</span> {note.title}
-              </p>
-              <p className="text-gray-500 text-sm">
-                Created: {new Date(note.createdAt).toLocaleString()}
-              </p>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+              <p className="text-sm text-gray-500 mb-1">ID</p>
+              <p className="text-gray-800 font-semibold">{note.id}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+              <p className="text-sm text-gray-500 mb-1">Title</p>
+              <p className="text-gray-800 text-lg font-medium">{note.title}</p>
+            </div>
+            <div className="text-sm text-gray-400">
+              Created: {new Date(note.createdAt).toLocaleString()}
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6">
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <button
                   onClick={handleDelete}
-                  className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition text-sm sm:text-base"
+                  className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-6 rounded-lg shadow transition"
                 >
                   🗑️ Delete
                 </button>
                 <Link
                   to={`/notes/${id}/edit`}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition text-sm sm:text-base"
+                  className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg shadow transition text-center"
                 >
                   ✏️ Edit
                 </Link>
               </div>
-
-              <Link
-                to="/notes"
-                className="text-blue-600 hover:underline text-sm font-medium text-center sm:text-left"
-              >
-                ← Back to Notes
-              </Link>
             </div>
-          </>
+          </div>
         )}
       </div>
       <ToastContainer position="bottom-right" />
