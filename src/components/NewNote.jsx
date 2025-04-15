@@ -44,6 +44,8 @@ const NewNote = () => {
           //  toast.success("Created successfully!");
           //  setTitle("");
           //  setTimeout(() => navigate("/notes"), 500); // give toast time to sho
+       }else{
+            toast.warning("Please enter a title!");
        }
   }
 
