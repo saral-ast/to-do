@@ -24,8 +24,8 @@ export const addTodo = createAsyncThunk('todo/addTodo',async(todo)=>{
     const response = await axios.post(apiUrl,todo);
     return response.data
 })
-export const updateTodo = createAsyncThunk('todo/updateTodo',async({id, todo})=>{
-    const response = await axios.put(`${apiUrl}/${id}`,todo);
+export const updateTodo = createAsyncThunk('todo/updateTodo',async({id,title})=>{
+    const response = await axios.put(`${apiUrl}/${id}`,{title:title});
     return response.data
 })
 
