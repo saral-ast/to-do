@@ -16,7 +16,7 @@ const EditNote = () => {
   const error = useSelector(selectError)
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);
-  const apiUrl = import.meta.env.VITE_API_URL;
+  // const apiUrl = import.meta.env.VITE_API_URL;
 
   // const handleSave = async (title) => {
   //   if (title.trim()) {
@@ -38,8 +38,11 @@ const EditNote = () => {
   const handleSave = () => {
     if (title.trim()) {
       dispatch(updateTodo({ id, title }))
-      toast.success("Updated successfully!");
-      setTimeout(() => navigate("/notes"), 1500);
+      .unwrap()
+      .then(() => {
+        toast.success("Updated successfully!");
+        setTimeout(() => navigate("/notes"), 800);
+      })
     } else {
       toast.warning("Title cannot be empty!");
     }

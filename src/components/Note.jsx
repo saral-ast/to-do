@@ -49,8 +49,11 @@ const Note = () => {
   // };
    const handleDelete = () => {
     dispatch(deleteTodo(id))
-    toast.success("Deleted successfully!");
-    setTimeout(() => navigate("/notes"), 1500);
+    .unwrap()
+    .then(() => {
+      toast.success("Deleted successfully!");
+      setTimeout(() => navigate("/notes"), 800);
+    })
   };
 
   useEffect(() => {

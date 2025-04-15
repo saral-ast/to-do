@@ -36,9 +36,14 @@ const NewNote = () => {
   const handleSave = () => {
        if(title.trim()){
            dispatch(addTodo({title}))
-           toast.success("Created successfully!");
-           setTitle("");
-           setTimeout(() => navigate("/notes"), 500); // give toast time to sho
+           .then(() => {
+               toast.success("Created successfully!");
+               setTitle("");
+               setTimeout(() => navigate("/notes"), 800); // give toast time to show
+           })
+          //  toast.success("Created successfully!");
+          //  setTitle("");
+          //  setTimeout(() => navigate("/notes"), 500); // give toast time to sho
        }
   }
 
