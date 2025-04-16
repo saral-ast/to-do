@@ -24,12 +24,7 @@ const EditNote = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    handleSave(data.title);
-  };
-
-  const error = useSelector(selectError);
-
-  const handleSave = (title) => {
+    const { title } = data.title;
     if (title.trim()) {
       dispatch(updateTodo({ id, title }))
         .unwrap()
@@ -37,9 +32,13 @@ const EditNote = () => {
           toast.success("Updated successfully!");
           setTimeout(() => navigate("/notes"), 800);
         });
-    } else {
-      toast.warning("Title cannot be empty!");
     }
+  };
+
+  const error = useSelector(selectError);
+
+  const handleSave = (title) => {
+    
   };
 
   useEffect(() => {
