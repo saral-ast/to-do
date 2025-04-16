@@ -37,10 +37,6 @@ const EditNote = () => {
 
   const error = useSelector(selectError);
 
-  const handleSave = (title) => {
-    
-  };
-
   useEffect(() => {
     dispatch(fetchSingleTodo(id));
   }, [dispatch, id]);
