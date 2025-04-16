@@ -43,8 +43,7 @@ const NewNote = () => {
               },
             })}
             placeholder="Enter your title..."
-            defaultValue={'gdfgdgdf'}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => e.target.value}
             type="text"
             className={`w-full p-3 border border-gray-300 rounded-md mb-3 focus:outline-none ${
               errors.title ? "border-red-500" : " focus:ring-blue-500"
