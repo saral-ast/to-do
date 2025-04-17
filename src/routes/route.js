@@ -8,6 +8,7 @@ import Note from "../components/Note";
 import NewNote from "../components/NewNote";
 import EditNote from "../components/EditNote";
 import NotFound from "../pages/NotFound";
+import Data from "../components/Data";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "data",
+        Component: Data,
       },
       {
         path: "notes",

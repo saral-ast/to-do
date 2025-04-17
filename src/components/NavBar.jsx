@@ -12,6 +12,7 @@ const NavBar = () => {
           <NavItem url="/about" name="About" />
           <NavItem url="/contact" name="Contact" />
           <NavItem url="/notes" name="Notes" />
+          <NavItem url="/data" name="Data" />
         </ul>
       </div>
     </nav>
