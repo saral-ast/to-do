@@ -24,14 +24,17 @@ const Data = () => {
     }, [])
          console.log(data);
   return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-4">
-          <h1>Data</h1>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-4">
+      <h1>Data</h1>
+      {data && (
+        <div>
           <h2>{data.name}</h2>
           <h2>{data.address}</h2>
           <h2>{data.city}</h2>
-
-      </div>
-  )
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Data
